@@ -27,7 +27,6 @@ pdf.cell(94, 75.5, ln= 1, align = 'C', fill=True)
 pdf.image('ano_DIA.png', x = 111, y = 38, w = 88, h = 67.5)
 
 # SEGUNDA LINHA DE GRÁFICOS
-
 pdf.set_xy(x=6, y=114)
 pdf.cell(94, 75.5, ln= 0, align = 'C', fill=True)
 pdf.image('diferenca_DIA_OB.png', x = 9, y = 118, w = 88, h = 67.5)
@@ -37,11 +36,24 @@ pdf.cell(94, 75.5, ln= 1, align = 'C', fill=True)
 pdf.image("casos_CRI.png", x = 111, y = 118, w = 88, h = 67.5)
 
 # TERCEIRA LINHA DE GRÁFICOS
+pdf.set_xy(x=6, y=200)
+pdf.cell(94, 75.5, ln= 0, align = 'C', fill=True)
+pdf.image('sexualidade.png', x=9, y=204, w= 88, h=67.5)
 
-pdf.set_xy(x=6, y=195)
-pdf.cell(196, 81, ln= 2, align = 'C', fill=True)
-pdf.image('raça_sexo.png', x=9, y=199, w= 94, h=73)
-pdf.image("nivel_escolaridade.png", x = 105, y = 199, w = 94, h = 73)
+pdf.set_x(x=108)
+pdf.cell(94, 75.5, ln= 1, align = 'C', fill=True)
+pdf.image("evolucao.png", x = 111, y = 204, w = 88, h = 67.5)
+
+# QUARTA LINHA DE GRÁFICOS
+pdf.add_page('P')
+pdf.set_xy(x=42, y=10)
+pdf.cell(126, 104, ln= 1, align = 'C', fill=True)
+pdf.image("raça_sexo.png", x = 45, y = 14, w = 120, h = 96)
+
+# QUINTA LINHA DE GRÁFICOS
+pdf.set_xy(x=42,y=124)
+pdf.cell(126, 104, ln= 1, align = 'C', fill=True)
+pdf.image("nivel_escolaridade.png", x = 45, y = 128, w = 120, h = 96)
 
 pdf.output('dados_graficos.pdf')
 print

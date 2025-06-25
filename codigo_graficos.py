@@ -4,7 +4,6 @@ import pandas as pd
 
 df = pd.read_excel('dados_aids_hiv_excel_1.xlsx')  #foi criado um arquivo excel com os dados que foram retirados do site do DATASUS sobre AIDS/
 
-
 # LIMPEZA DE DADOS
 
 df['DT_OBITO'] = df['DT_OBITO'].fillna('Vivo') # substitui os valores nulos da coluna pelo string 'vivo'
@@ -41,7 +40,7 @@ x = np.arange(len(raça))
 
 fig, ax = plt.subplots(figsize=(10,6)) # cria a figura e o eixo
 
-# criação das barras
+    # criação das barras
 
 width = 0.4
 p1 = ax.bar(x - width/2, num_Masculino, width, label='Masculino', color='steelblue')
@@ -49,7 +48,7 @@ p2 = ax.bar(x + width/2, num_Feminino, width, label='Feminino', color='plum')
 ax.bar_label(p1, padding=3)
 ax.bar_label(p2, padding=3)
 
-# nomeando os demais elementos
+    # nomeando os demais elementos
 
 ax.set_ylabel('Número de Casos')
 ax.set_title('Distribuição dos Casos de HIV por Sexo e Raça')
@@ -107,21 +106,31 @@ plt.tight_layout()
 plt.savefig("diferenca_DIA_OB.png")
 plt.show()
 
-#GRÁFICO DE SEXUALIDADE 
+# GRÁFICO DE SEXUALIDADE 
+    #A PARTIR DAQUI: renomeando para destacar apenas a sexualidade
+df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Homo/Hemofílico', 'Homossexual'))
+df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Homo/Drogas', 'Homossexual'))
 
-frequencias = df['ANT_REL_CA'].value_counts()
-plt.bar(frequencias.index, frequencias.values, color='plum')
-plt.title("Frequência por sexualidade") #atribui um título ao gráfico
-plt.xlabel("Sexualidade") #nomeia o eixo x
+df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Hetero/Droga', 'Heterossexual'))
+df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Hetero/Hemofílico', 'Heterossexual'))
+df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Hetero/Droga/Hemofílico', 'Heterossexual'))
+df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Heterossexual/Hemofílico', 'Heterossexual'))
+
+df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Bi/Drogas', 'Bissexual'))
+df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Bi/Hemofílico', 'Bissexual'))
+df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Bi/Droga/Hemofílico', 'Bissexual'))
+
+df['ANT_REL_CA'].value_counts().plot(kind='bar', color="plum")#criamos um histograma e personalizamos
+plt.title("Ocorrência por Sexualidade") #atribui um título ao gráfico
+plt.xlabel('')
 plt.ylabel("Número de Casos") #nomeia o eixo y
-plt.xticks(rotation=45) #ajusta os elementos de x para não ficarem um em cima do outro
-plt.tight_layout() # ajusta o gráfico
-plt.savefig("freq_sexualidade.png") #salva um arquivo png
-plt.show()
+plt.xticks(rotation=360)
+plt.tight_layout()
+plt.savefig("sexualidade.png") #gera um pdf da análise
+plt.show() #exibe o gráfico
 
 # GRÁFICO DE ESCOLARIDADE
-#A PARTIR DAQUI: renomeando para facilitação do entendimento do gráfico
-
+    #A PARTIR DAQUI: renomeando para facilitação do entendimento do gráfico
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('5ª a 8ª série incompleta do EF', 'E.F incompleto'))
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('1ª a 4ª série incompleta do EF', 'E.F incompleto'))
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('4ª série completa EF', 'E.F incompleto'))
@@ -132,7 +141,7 @@ df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('Ensino fundame
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('Educação superior completa', 'E.S completo'))
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('Ensino médio completo', 'E.M completo'))
 
-#criando a figura
+    #criando a figura
 
 fig = plt.figure(figsize =(10, 6))  #tamanho da figura
 explode = [0.1, 0, 0 , 0, 0, 0]    #destacando uma das fatias
@@ -148,3 +157,9 @@ plt.legend(df['CS_ESCOL_N'], title = "Escolaridade", loc = "upper left", bbox_to
 plt.savefig("nivel_escolaridade.png") #gera um pdf da análise
 plt.show() #exibe o gráfico
 
+# PIE GRAPH DE OBITO
+plt.pie(df['EVOLUCAO'].value_counts(), labels = df['EVOLUCAO'].value_counts().index,autopct='%1.1f%%')
+plt.title('Evolução do HIV')
+plt.tight_layout()
+plt.savefig("evolucao.png")
+plt.show()
