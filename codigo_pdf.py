@@ -40,9 +40,9 @@ pdf.image("casos_CRI.png", x = 111, y = 118, w = 88, h = 67.5)
 
 pdf.set_xy(x=6, y=195)
 pdf.cell(196, 81, ln= 2, align = 'C', fill=True)
-pdf.image('distribuicao_idades.png', x=9, y=199, w= 94, h=73)
+pdf.image('raça_sexo.png', x=9, y=199, w= 94, h=73)
 pdf.image("nivel_escolaridade.png", x = 105, y = 199, w = 94, h = 73)
 
-pdf.output('teste.pdf')
+pdf.output('dados_graficos.pdf')
 print
 
