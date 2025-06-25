@@ -114,13 +114,11 @@ df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('5ª a 8ª sér
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('1ª a 4ª série incompleta do EF', 'E.F incompleto'))
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('4ª série completa EF', 'E.F incompleto'))
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('Não se aplica', 'E.F completo'))
-df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('Ignorado', 'E.F completo'))
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('Educação superior incompleta', 'E.S incompleto'))
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('Ensino médio incompleto', 'E.M incompleto'))
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('Ensino fundamental completo', 'E.F completo'))
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('Educação superior completa', 'E.S completo'))
 df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('Ensino médio completo', 'E.M completo'))
-df['CS_ESCOL_N'] = df['CS_ESCOL_N'].map(lambda x: str(x).replace('nan', 'E.F completo'))
 
 #criando a figura
 
