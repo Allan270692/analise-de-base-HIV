@@ -107,6 +107,18 @@ plt.tight_layout()
 plt.savefig("diferenca_DIA_OB.png")
 plt.show()
 
+#GRÁFICO DE SEXUALIDADE 
+
+frequencias = df['ANT_REL_CA'].value_counts()
+plt.bar(frequencias.index, frequencias.values, color='plum')
+plt.title("Frequência por sexualidade") #atribui um título ao gráfico
+plt.xlabel("Sexualidade") #nomeia o eixo x
+plt.ylabel("Número de Casos") #nomeia o eixo y
+plt.xticks(rotation=45) #ajusta os elementos de x para não ficarem um em cima do outro
+plt.tight_layout() # ajusta o gráfico
+plt.savefig("freq_sexualidade.png") #salva um arquivo png
+plt.show()
+
 # GRÁFICO DE ESCOLARIDADE
 #A PARTIR DAQUI: renomeando para facilitação do entendimento do gráfico
 
