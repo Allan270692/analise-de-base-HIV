@@ -97,6 +97,7 @@ df_Obito['ano_DIAGN'] = df_Obito['DT_DIAG'].dt.year
 df_Obito['diferença'] = (df_Obito['ano_Obito'] - df_Obito['ano_DIAGN']) # diferença em anos
 df_Obito['diferença'].astype(int).value_counts().sort_index().plot(kind='bar', color="plum") # criação do gráfico
 plt.title('Tempo, em Anos, entre Diagnóstico e Óbito') # título
+plt.xticks(rotation=360)
 plt.xlabel('Anos') # rótulo do eixo x
 plt.ylabel('Número de casos') # rótulo do eixo y
 

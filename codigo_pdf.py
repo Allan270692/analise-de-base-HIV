@@ -60,7 +60,7 @@ pdf.rect(x=42,y=186,w=126,h=80,style='F')
 pdf.image("IMA_meses_diag.png", x = 45, y = 190, w = 120, h = 72)
 pdf.text(62,271,"Gráfico mostra a frequência de casos em cada mês nos anos de maior ocorrência.")
 
-
+# FINAL DA PÁGINA
 pdf.set_fill_color(74,50,103)
 pdf.rect(x=0,y=277,w=210,h=10,style='F')
 pdf.set_text_color(241,228,219)
