@@ -57,8 +57,8 @@ pdf.text(44,183,"Ensino Médio Incompleto e Ensino Fundamental Incompleto são o
 
 # SEXTA LINHA DE GRÁFICOS
 pdf.rect(x=42,y=186,w=126,h=80,style='F')
-pdf.image("IMA_meses_obito.png", x = 45, y = 190, w = 120, h = 72)
-pdf.text(75,271,"Gráfico mostra a frequência de casos de óbito em cada mês.")
+pdf.image("IMA_meses_diag.png", x = 45, y = 190, w = 120, h = 72)
+pdf.text(62,271,"Gráfico mostra a frequência de casos em cada mês nos anos de maior ocorrência.")
 
 pdf.output('dados_graficos.pdf')
 print

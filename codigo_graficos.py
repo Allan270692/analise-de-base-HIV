@@ -104,12 +104,13 @@ plt.tight_layout()
 plt.savefig("IMA_obito_diag.png")
 plt.show()
 
-# GRÁFICO OBITOS NOS ANOS DE MAIOR OCORRENCIA
-df_Obito['mes_Obito'] = df_Obito['DT_OBITO'].dt.month #extraindo o mês
-df_Obito['ano_Obito'] = df_Obito['DT_OBITO'].dt.year #extraindo o ano
-df_Obito['ano_Obito'] = df_Obito['ano_Obito'].astype(str) #transformando no tipo string
+# GRÁFICO DIAGNOSTICOS NO ANOS DE MAIOR OCORRENCIA
+df['DT_DIAG'] = pd.to_datetime(df['DT_DIAG'], format='%Y-%m-%d')
+df['mes_DIAG'] = df['DT_DIAG'].dt.month #extraindo o mês
+df['ano_DIAG'] = df['DT_DIAG'].dt.year #extraindo o ano
+df['ano_DIAG'] = df['ano_DIAG'].astype(str) #transformando no tipo string
 
-df_meses_anos = df_Obito.groupby(['mes_Obito', 'ano_Obito']).size().unstack() # contando as combinações entre as colunas e reorganiza as colunas
+df_meses_anos = df.groupby(['mes_DIAG', 'ano_DIAG']).size().unstack() # contando as combinações entre as colunas e reorganiza as colunas
 meses = df_meses_anos.index 
 x = np.arange(len(meses)) #
 
@@ -117,15 +118,15 @@ fig, ax = plt.subplots(figsize=(10,6))
 ax.stackplot(x, df_meses_anos['2017'], df_meses_anos['2019'], df_meses_anos['2018'], 
              labels = ['2017', '2018', '2019'], colors=['lightgreen', 'plum', 'steelblue'])
 
-ax.set_ylabel('Número de Óbitos')
-ax.set_title('Número de Óbitos, ao Longo dos Meses, nos Anos de Maior Ocorrência')
+ax.set_ylabel('Número de Casos')
+ax.set_title('Número de Diagnósticos, ao Longo dos Meses, nos Anos de Maior Ocorrência')
 ax.set_xlabel('Meses')
 ax.set_xticks(x)
 ax.set_xticklabels(meses)
 ax.legend()
 
 plt.tight_layout()
-plt.savefig("IMA_meses_obito.png")
+plt.savefig("IMA_meses_diag.png")
 plt.show()
 
 # GRÁFICO DE SEXUALIDADE 
