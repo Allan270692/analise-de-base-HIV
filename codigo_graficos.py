@@ -70,7 +70,7 @@ plt.tight_layout()
 plt.savefig("IMA_ano_diag.png")
 plt.show()
 
-# CASOS POR CRITÉRIO
+# GRÁFICO DE CASOS POR CRITÉRIO
 
 fig, ax = plt.subplots(figsize=(8,6))
 
@@ -85,7 +85,7 @@ plt.tight_layout()
 plt.savefig("IMA_criterios.png")
 plt.show()
 
-# DIFERENÇA ENTRE DIAGNÓSTICO E OBITO
+# GRÁFICO DE DIFERENÇA ENTRE DIAGNÓSTICO E OBITO
 
 df_Obito = df[df['DT_OBITO'] != 'Vivo'].copy() # cópio do dataframe
 
@@ -127,7 +127,7 @@ ax.legend()
 
 plt.tight_layout()
 plt.savefig("IMA_meses_diag.png")
-plt.show()
+plt.show()  
 
 # GRÁFICO DE SEXUALIDADE 
     #A PARTIR DAQUI: renomeando para destacar apenas a sexualidade
