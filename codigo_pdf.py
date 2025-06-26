@@ -15,45 +15,50 @@ pdf.multi_cell(220, 10, 'DADOS DE HIV ENTRE 2010 E 2024 \n NO ESTADO DE MINAS GE
 # CORES E FONTE
 pdf.set_fill_color(241,228,219)
 pdf.set_text_color(74,50,103)
-pdf.set_font('Times', '', 11)
+pdf.set_font('Times', '', 8)
 
 # PRIMEIRA LINHA DE GRÁFICOS 
-pdf.set_xy(x=6, y=34)
-pdf.cell(94, 75.5, ln= 0, align = 'C', fill=True)
-pdf.image('distribuicao_idades.png', x = 9, y = 38, w = 88, h = 67.5)
+pdf.rect(x=6,y=34,w=94,h=75.5,style='F')
+pdf.image('IMA_idades.png', x = 9, y = 38, w = 88, h = 67.5)
+pdf.text(10,114, "Histograma indicando uma maior frequência de HIV na faixa etária 25-35.")
 
-pdf.set_x(x=108)
-pdf.cell(94, 75.5, ln= 1, align = 'C', fill=True)
-pdf.image('ano_DIA.png', x = 111, y = 38, w = 88, h = 67.5)
+pdf.rect(x=108,y=34,w=94,h=75.5,style='F')
+pdf.image('IMA_ano_diag.png', x = 111, y = 38, w = 88, h = 67.5)
+pdf.text(106,114,"Gráfico demonstra a trajetória dos casos de infecção pelo HIV de 2010 a março de 2024.")
 
 # SEGUNDA LINHA DE GRÁFICOS
-pdf.set_xy(x=6, y=114)
-pdf.cell(94, 75.5, ln= 0, align = 'C', fill=True)
-pdf.image('diferenca_DIA_OB.png', x = 9, y = 118, w = 88, h = 67.5)
+pdf.rect(x=6,y=117,w=94,h=75.5,style='F')
+pdf.image('IMA_obito_diag.png', x = 9, y = 121, w = 88, h = 67.5)
+pdf.text(10,197,"Maioria dos casos de óbito aconteceram em menos de um ano do diagnóstico.")
 
-pdf.set_x(x=108)
-pdf.cell(94, 75.5, ln= 1, align = 'C', fill=True)
-pdf.image("casos_CRI.png", x = 111, y = 118, w = 88, h = 67.5)
+pdf.rect(x=108,y=117,w=94,h=75.5,style='F')
+pdf.image("IMA_criterios.png", x = 111, y = 121, w = 88, h = 67.5)
+pdf.text(129,197,"HIV+ é o critério de diagnóstico mais recorrente.")
 
 # TERCEIRA LINHA DE GRÁFICOS
-pdf.set_xy(x=6, y=200)
-pdf.cell(94, 75.5, ln= 0, align = 'C', fill=True)
-pdf.image('sexualidade.png', x=9, y=204, w= 88, h=67.5)
+pdf.rect(x=6,y=200,w=94,h=75.5,style='F')
+pdf.image('IMA_sexualidade.png', x=9, y=204, w= 88, h=67.5)
+pdf.text(28,280,"Pessoas heterossexuais são as mais afetadas.")
 
-pdf.set_x(x=108)
-pdf.cell(94, 75.5, ln= 1, align = 'C', fill=True)
-pdf.image("evolucao.png", x = 111, y = 204, w = 88, h = 67.5)
+pdf.rect(x=108,y=200,w=94,h=75.5,style='F')
+pdf.image("IMA_evolucao.png", x = 111, y = 204, w = 88, h = 67.5)
+pdf.text(129,280,"4,1% dos casos resultou em óbito por Aids.")
 
 # QUARTA LINHA DE GRÁFICOS
 pdf.add_page('P')
-pdf.set_xy(x=42, y=10)
-pdf.cell(126, 104, ln= 1, align = 'C', fill=True)
-pdf.image("raça_sexo.png", x = 45, y = 14, w = 120, h = 96)
+pdf.rect(x=42,y=10,w=126,h=80,style='F')
+pdf.image("IMA_raca_sexo.png", x = 45, y = 14, w = 120, h = 72)
+pdf.text(64,95,"Homens brancos e homens pardos são os grupos mais afetados pelo HIV.")
 
 # QUINTA LINHA DE GRÁFICOS
-pdf.set_xy(x=42,y=124)
-pdf.cell(126, 104, ln= 1, align = 'C', fill=True)
-pdf.image("nivel_escolaridade.png", x = 45, y = 128, w = 120, h = 96)
+pdf.rect(x=42,y=98,w=126,h=80,style='F')
+pdf.image("IMA_nivel_escolaridade.png", x = 45, y = 102, w = 120, h = 72)
+pdf.text(44,183,"Ensino Médio Incompleto e Ensino Fundamental Incompleto são os níveis de escolaridade mais recorrentes.")
+
+# SEXTA LINHA DE GRÁFICOS
+pdf.rect(x=42,y=186,w=126,h=80,style='F')
+pdf.image("IMA_meses_obito.png", x = 45, y = 190, w = 120, h = 72)
+pdf.text(75,271,"Gráfico mostra a frequência de casos de óbito em cada mês.")
 
 pdf.output('dados_graficos.pdf')
 print

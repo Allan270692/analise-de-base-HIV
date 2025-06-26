@@ -25,23 +25,22 @@ plt.xlabel("Idade") #nomeia o eixo x
 plt.xticks(intervalo) #eixo x terá os elementos descritos em intervalo
 plt.ylabel("Número de Casos") #nomeia o eixo y
 
-plt.tight_layout()
-plt.savefig("distribuicao_idades.png") #gera um pdf da análise
+plt.tight_layout() # ajusta os parâmetros do gráfico
+plt.savefig("IMA_idades.png") #gera um png da análise
 plt.show() #exibe o gráfico
 
 # GRÁFICO DE DISTRUIÇÃO POR RAÇA E SEXO
 
-dataset = df.groupby(['CS_RACA', 'CS_SEXO']).size().unstack() # contando as combinações entre as colunas
-raça = dataset.index # rótulos das linhas
-num_Masculino = dataset['Masculino']
-num_Feminino = dataset['Feminino']
+df_raca_sexo = df.groupby(['CS_RACA', 'CS_SEXO']).size().unstack() # contando as combinações entre as colunas e as reorganiza
+raça = df_raca_sexo.index # index desse novo df é a coluna de raças 
+num_Masculino = df_raca_sexo['Masculino']
+num_Feminino = df_raca_sexo['Feminino']
 
-x = np.arange(len(raça))
+x = np.arange(len(raça)) # cria um intervalo entre 0 até o comprimento do objeto fornecido
 
 fig, ax = plt.subplots(figsize=(10,6)) # cria a figura e o eixo
 
     # criação das barras
-
 width = 0.4
 p1 = ax.bar(x - width/2, num_Masculino, width, label='Masculino', color='steelblue')
 p2 = ax.bar(x + width/2, num_Feminino, width, label='Feminino', color='plum')
@@ -49,7 +48,6 @@ ax.bar_label(p1, padding=3)
 ax.bar_label(p2, padding=3)
 
     # nomeando os demais elementos
-
 ax.set_ylabel('Número de Casos')
 ax.set_title('Distribuição dos Casos de HIV por Sexo e Raça')
 ax.set_xticks(x)
@@ -57,7 +55,7 @@ ax.set_xticklabels(raça)
 ax.legend() # adiciona a legenda
 
 plt.tight_layout() # ajusta os parâmetros do gráfico
-plt.savefig("raça_sexo.png")
+plt.savefig("IMA_raca_sexo.png")
 plt.show()
 
 # GRÁFICO DE ANO DO DIAGNÓSTICO
@@ -69,7 +67,7 @@ plt.xlabel("Ano de Diagnóstico") #nomeia o eixo x
 plt.ylabel("Número de Casos") #nomeia o eixo y
 
 plt.tight_layout()
-plt.savefig("ano_DIA.png")
+plt.savefig("IMA_ano_diag.png")
 plt.show()
 
 # CASOS POR CRITÉRIO
@@ -84,26 +82,26 @@ ax.set_ylabel('Critério')
 ax.set_title('Distribuição dos Casos por Critério de Diagnóstico')
 
 plt.tight_layout()
-plt.savefig("casos_CRI.png")
+plt.savefig("IMA_criterios.png")
 plt.show()
 
 # DIFERENÇA ENTRE DIAGNÓSTICO E OBITO
 
-df_Obito = df[df['DT_OBITO'] != 'Vivo'].copy()
+df_Obito = df[df['DT_OBITO'] != 'Vivo'].copy() # cópio do dataframe
 
-df_Obito['DT_OBITO'] = pd.to_datetime(df_Obito['DT_OBITO'], format='%Y-%m-%d')
+df_Obito['DT_OBITO'] = pd.to_datetime(df_Obito['DT_OBITO'], format='%Y-%m-%d')  # transformado para objeto de data
 df_Obito['DT_DIAG'] = pd.to_datetime(df_Obito['DT_DIAG'], format='%Y-%m-%d')
-df_Obito['DT_OBITO'] = df_Obito['DT_OBITO'].dt.year
-df_Obito['DT_DIAG'] = df_Obito['DT_DIAG'].dt.year
+df_Obito['ano_Obito'] = df_Obito['DT_OBITO'].dt.year # selecionando apenas o ano
+df_Obito['ano_DIAGN'] = df_Obito['DT_DIAG'].dt.year
 
-df_Obito['diferença'] = (df_Obito['DT_OBITO'] - df_Obito['DT_DIAG'])
-df_Obito['diferença'].astype(int).value_counts().sort_index().plot(kind='bar', color="plum")
-plt.title('Tempo, em Anos, entre Diagnóstico e Óbito')
-plt.xlabel('Anos')
-plt.ylabel('Número de casos')
+df_Obito['diferença'] = (df_Obito['ano_Obito'] - df_Obito['ano_DIAGN']) # diferença em anos
+df_Obito['diferença'].astype(int).value_counts().sort_index().plot(kind='bar', color="plum") # criação do gráfico
+plt.title('Tempo, em Anos, entre Diagnóstico e Óbito') # título
+plt.xlabel('Anos') # rótulo do eixo x
+plt.ylabel('Número de casos') # rótulo do eixo y
 
 plt.tight_layout()
-plt.savefig("diferenca_DIA_OB.png")
+plt.savefig("IMA_obito_diag.png")
 plt.show()
 
 # GRÁFICO DE SEXUALIDADE 
@@ -120,13 +118,13 @@ df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Bi/Drogas', 'B
 df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Bi/Hemofílico', 'Bissexual'))
 df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Bi/Droga/Hemofílico', 'Bissexual'))
 
-df['ANT_REL_CA'].value_counts().plot(kind='bar', color="plum")#criamos um histograma e personalizamos
+df['ANT_REL_CA'].value_counts().plot(kind='bar', color="plum") # cria-se um gráfico de barras
 plt.title("Ocorrência por Sexualidade") #atribui um título ao gráfico
 plt.xlabel('')
 plt.ylabel("Número de Casos") #nomeia o eixo y
 plt.xticks(rotation=360)
 plt.tight_layout()
-plt.savefig("sexualidade.png") #gera um pdf da análise
+plt.savefig("IMA_sexualidade.png") #gera um png da análise
 plt.show() #exibe o gráfico
 
 # GRÁFICO DE ESCOLARIDADE
@@ -154,12 +152,41 @@ plt.pie(df['CS_ESCOL_N'].value_counts(),
 
 plt.title("Nível de escolaridade") 
 plt.legend(df['CS_ESCOL_N'], title = "Escolaridade", loc = "upper left", bbox_to_anchor =(1.0, 1)) #criando a legenda do gráfico
-plt.savefig("nivel_escolaridade.png") #gera um pdf da análise
+plt.savefig("IMA_nivel_escolaridade.png") #gera um pdf da análise
 plt.show() #exibe o gráfico
 
 # PIE GRAPH DE OBITO
-plt.pie(df['EVOLUCAO'].value_counts(), labels = df['EVOLUCAO'].value_counts().index,autopct='%1.1f%%')
+plt.pie(df['EVOLUCAO'].value_counts(), labels = df['EVOLUCAO'].value_counts().index, autopct='%1.1f%%')
 plt.title('Evolução do HIV')
 plt.tight_layout()
-plt.savefig("evolucao.png")
+plt.savefig("IMA_evolucao.png")
 plt.show()
+
+# GRÁFICO OBITOS NOS ANOS DE MAIOR OCORRENCIA
+df_Obito['mes_Obito'] = df_Obito['DT_OBITO'].dt.month
+df_Obito['ano_Obito'] = df_Obito['DT_OBITO'].dt.year
+df_Obito['ano_Obito'] = df_Obito['ano_Obito'].astype(str)
+
+df_meses_anos = df_Obito.groupby(['mes_Obito', 'ano_Obito']).size().unstack()
+
+meses = df_meses_anos.index
+x = np.arange(len(meses))
+
+fig, ax = plt.subplots(figsize=(10,6))
+ax.stackplot(x, df_meses_anos['2017'], df_meses_anos['2019'], df_meses_anos['2018'], 
+             labels = ['2017', '2018', '2019'], colors=['lightgreen', 'plum', 'steelblue'])
+
+ax.set_ylabel('Número de Óbitos')
+ax.set_title('Número de Óbitos, ao Longo dos Meses, nos Anos de Maior Ocorrência')
+ax.set_xlabel('Meses')
+ax.set_xticks(x)
+ax.set_xticklabels(meses)
+ax.legend()
+
+plt.tight_layout()
+plt.savefig("IMA_meses_obito.png")
+plt.show()
+
+print(df_meses_anos['2017'])
+print(df_meses_anos['2018'])
+print(df_meses_anos['2019'])
