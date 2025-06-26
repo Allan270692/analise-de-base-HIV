@@ -131,15 +131,13 @@ plt.savefig("IMA_meses_diag.png")
 plt.show()  
 
 # GRÁFICO DE SEXUALIDADE 
-    #A PARTIR DAQUI: renomeando para destacar apenas a sexualidade
+#A PARTIR DAQUI: renomeando para destacar apenas a sexualidade
 df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Homo/Hemofílico', 'Homossexual'))
 df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Homo/Drogas', 'Homossexual'))
-
 df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Hetero/Droga', 'Heterossexual'))
 df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Hetero/Hemofílico', 'Heterossexual'))
 df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Hetero/Droga/Hemofílico', 'Heterossexual'))
 df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Heterossexual/Hemofílico', 'Heterossexual'))
-
 df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Bi/Drogas', 'Bissexual'))
 df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Bi/Hemofílico', 'Bissexual'))
 df['ANT_REL_CA'] = df['ANT_REL_CA'].map(lambda x: str(x).replace('Bi/Droga/Hemofílico', 'Bissexual'))
@@ -148,7 +146,7 @@ df['ANT_REL_CA'].value_counts().plot(kind='bar', color="plum") # cria-se um grá
 plt.title("Ocorrência por Sexualidade") #atribui um título ao gráfico
 plt.xlabel('')
 plt.ylabel("Número de Casos") #nomeia o eixo y
-plt.xticks(rotation=360)
+plt.xticks(rotation=0)
 plt.tight_layout()
 plt.savefig("IMA_sexualidade.png") #gera um png da análise
 plt.show() #exibe o gráfico
