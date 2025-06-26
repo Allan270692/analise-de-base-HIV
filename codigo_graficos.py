@@ -7,8 +7,8 @@ df = pd.read_excel('dados_aids_hiv_excel_1.xlsx')  #foi criado um arquivo excel 
 # LIMPEZA DE DADOS
 
 df['DT_OBITO'] = df['DT_OBITO'].fillna('Vivo') # substitui os valores nulos da coluna pelo string 'vivo'
-df.replace('Ignorado', np.nan, inplace=True) # substitui todos os valores 'Ignorado' por um valor nulo
-df.dropna(inplace=True) # remove linhas com valores ausentes
+df.replace('Ignorado', np.nan, inplace=True) # substitui todas as células 'Ignorado' por um valor nulo
+df.dropna(inplace=True) # remove linhas com valores nulos
 
 # MUDANÇA DE FONTE GERAL 
 
@@ -31,7 +31,7 @@ plt.show() #exibe o gráfico
 
 # GRÁFICO DE DISTRUIÇÃO POR RAÇA E SEXO
 
-df_raca_sexo = df.groupby(['CS_RACA', 'CS_SEXO']).size().unstack() # contando as combinações entre as colunas e as reorganiza
+df_raca_sexo = df.groupby(['CS_RACA', 'CS_SEXO']).size().unstack() # contando as combinações entre as colunas e reorganiza as colunas
 raça = df_raca_sexo.index # index desse novo df é a coluna de raças 
 num_Masculino = df_raca_sexo['Masculino']
 num_Feminino = df_raca_sexo['Feminino']
@@ -60,8 +60,8 @@ plt.show()
 
 # GRÁFICO DE ANO DO DIAGNÓSTICO
 
-df['ano_DIAG'] = df['DT_DIAG'].dt.year
-df['ano_DIAG'].value_counts().sort_index().plot(color="plum", marker='o', linestyle="--")
+df['ano_DIAG'] = df['DT_DIAG'].dt.year #extrai o ano da coluna tipo 'datetime'
+df['ano_DIAG'].value_counts().sort_index().plot(color="plum", marker='o', linestyle="--") # criação do gráfico
 plt.title("Número de Casos ao Longo dos Anos") #atribui um título ao gráfico
 plt.xlabel("Ano de Diagnóstico") #nomeia o eixo x
 plt.ylabel("Número de Casos") #nomeia o eixo y
@@ -74,8 +74,8 @@ plt.show()
 
 fig, ax = plt.subplots(figsize=(8,6))
 
-contagem = df['CRITERIO'].value_counts()
-ax.barh(contagem.index, contagem, color="plum")
+contagem = df['CRITERIO'].value_counts() # conta os valores da coluna
+ax.barh(contagem.index, contagem, color="plum") # criação de um gráfico de barras horizontal 
 
 ax.set_xlabel('Número de Casos')
 ax.set_ylabel('Critério')
@@ -89,7 +89,7 @@ plt.show()
 
 df_Obito = df[df['DT_OBITO'] != 'Vivo'].copy() # cópio do dataframe
 
-df_Obito['DT_OBITO'] = pd.to_datetime(df_Obito['DT_OBITO'], format='%Y-%m-%d')  # transformado para objeto de data
+df_Obito['DT_OBITO'] = pd.to_datetime(df_Obito['DT_OBITO'], format='%Y-%m-%d')  # transformando para objeto de data
 df_Obito['DT_DIAG'] = pd.to_datetime(df_Obito['DT_DIAG'], format='%Y-%m-%d')
 df_Obito['ano_Obito'] = df_Obito['DT_OBITO'].dt.year # selecionando apenas o ano
 df_Obito['ano_DIAGN'] = df_Obito['DT_DIAG'].dt.year
@@ -102,6 +102,30 @@ plt.ylabel('Número de casos') # rótulo do eixo y
 
 plt.tight_layout()
 plt.savefig("IMA_obito_diag.png")
+plt.show()
+
+# GRÁFICO OBITOS NOS ANOS DE MAIOR OCORRENCIA
+df_Obito['mes_Obito'] = df_Obito['DT_OBITO'].dt.month #extraindo o mês
+df_Obito['ano_Obito'] = df_Obito['DT_OBITO'].dt.year #extraindo o ano
+df_Obito['ano_Obito'] = df_Obito['ano_Obito'].astype(str) #transformando no tipo string
+
+df_meses_anos = df_Obito.groupby(['mes_Obito', 'ano_Obito']).size().unstack() # contando as combinações entre as colunas e reorganiza as colunas
+meses = df_meses_anos.index 
+x = np.arange(len(meses)) #
+
+fig, ax = plt.subplots(figsize=(10,6))
+ax.stackplot(x, df_meses_anos['2017'], df_meses_anos['2019'], df_meses_anos['2018'], 
+             labels = ['2017', '2018', '2019'], colors=['lightgreen', 'plum', 'steelblue'])
+
+ax.set_ylabel('Número de Óbitos')
+ax.set_title('Número de Óbitos, ao Longo dos Meses, nos Anos de Maior Ocorrência')
+ax.set_xlabel('Meses')
+ax.set_xticks(x)
+ax.set_xticklabels(meses)
+ax.legend()
+
+plt.tight_layout()
+plt.savefig("IMA_meses_obito.png")
 plt.show()
 
 # GRÁFICO DE SEXUALIDADE 
@@ -155,38 +179,9 @@ plt.legend(df['CS_ESCOL_N'], title = "Escolaridade", loc = "upper left", bbox_to
 plt.savefig("IMA_nivel_escolaridade.png") #gera um pdf da análise
 plt.show() #exibe o gráfico
 
-# PIE GRAPH DE OBITO
-plt.pie(df['EVOLUCAO'].value_counts(), labels = df['EVOLUCAO'].value_counts().index, autopct='%1.1f%%')
+# GRÁFICO DE PORCENTAGEM DE ÓBITO
+plt.pie(df['EVOLUCAO'].value_counts(), labels = df['EVOLUCAO'].value_counts().index, autopct='%1.1f%%') # criação do gráfico de pizza
 plt.title('Evolução do HIV')
 plt.tight_layout()
 plt.savefig("IMA_evolucao.png")
 plt.show()
-
-# GRÁFICO OBITOS NOS ANOS DE MAIOR OCORRENCIA
-df_Obito['mes_Obito'] = df_Obito['DT_OBITO'].dt.month
-df_Obito['ano_Obito'] = df_Obito['DT_OBITO'].dt.year
-df_Obito['ano_Obito'] = df_Obito['ano_Obito'].astype(str)
-
-df_meses_anos = df_Obito.groupby(['mes_Obito', 'ano_Obito']).size().unstack()
-
-meses = df_meses_anos.index
-x = np.arange(len(meses))
-
-fig, ax = plt.subplots(figsize=(10,6))
-ax.stackplot(x, df_meses_anos['2017'], df_meses_anos['2019'], df_meses_anos['2018'], 
-             labels = ['2017', '2018', '2019'], colors=['lightgreen', 'plum', 'steelblue'])
-
-ax.set_ylabel('Número de Óbitos')
-ax.set_title('Número de Óbitos, ao Longo dos Meses, nos Anos de Maior Ocorrência')
-ax.set_xlabel('Meses')
-ax.set_xticks(x)
-ax.set_xticklabels(meses)
-ax.legend()
-
-plt.tight_layout()
-plt.savefig("IMA_meses_obito.png")
-plt.show()
-
-print(df_meses_anos['2017'])
-print(df_meses_anos['2018'])
-print(df_meses_anos['2019'])
