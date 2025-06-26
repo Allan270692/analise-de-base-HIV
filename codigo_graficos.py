@@ -1,6 +1,6 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
+import matplotlib.pyplot as plt
 
 df = pd.read_excel('dados_aids_hiv_excel_1.xlsx')  #foi criado um arquivo excel com os dados que foram retirados do site do DATASUS sobre AIDS/
 
