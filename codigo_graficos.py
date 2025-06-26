@@ -99,7 +99,7 @@ df_Obito['diferença'].astype(int).value_counts().sort_index().plot(kind='bar', 
 plt.title('Tempo, em Anos, entre Diagnóstico e Óbito') # título
 plt.xticks(rotation=360)
 plt.xlabel('Anos') # rótulo do eixo x
-plt.ylabel('Número de casos') # rótulo do eixo y
+plt.ylabel('Número de Óbitos') # rótulo do eixo y
 
 plt.tight_layout()
 plt.savefig("IMA_obito_diag.png")
